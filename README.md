@@ -11,3 +11,11 @@ I already have a working version of UTTT in a repository (the latest release is 
 - Creation of an online mode.
 
 Let's see what comes of this...
+
+---
+
+Programming language - **Python** version **3.13.9**
+
+Also use **PyGame** library version **2.6.1**
+
+<span style="color:gray">*version 3.0.0*</span>
