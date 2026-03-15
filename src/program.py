@@ -11,6 +11,8 @@ class Program:
 
     def __init__(self, version:str):
 
+        self.version = version
+
         pygame.init()
 
         self.status = "Game"

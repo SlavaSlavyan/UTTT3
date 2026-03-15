@@ -29,3 +29,5 @@ class Display:
         s = mainself.Scene.Game
 
         s.Item.BgRect.resize(mainself)
+        s.Item.Line.resize(mainself)
+        s.Item.Cells.resize(mainself)

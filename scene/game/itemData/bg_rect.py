@@ -5,15 +5,25 @@ class BgRect:
     def __init__(self, mainself):
         pass
 
-    def draw(self, mainself):
+    def draw(self, mainself, size:float = 1):
 
         d = mainself.Display
 
-        d.screen.blit(self.surface,(d.width//2 - self.surface.get_rect().centerx,
-                                    d.height//2 - self.surface.get_rect().centery))
+        if size == 1:
+            surface = self.surface
 
-    def resize(self, mainself, size:float = 1):
+        else:
+            surface = pygame.transform.scale(self.surface,
+                                   (600*d.zoom*size,
+                                    600*d.zoom*size)),
+            surface = surface[0]
         
-        self.surface = pygame.Surface((600*mainself.Display.zoom*size,
-                                       600*mainself.Display.zoom*size))
+        d.screen.blit(surface,
+                      (d.width//2 - surface.get_rect().centerx,
+                       d.height//2 - surface.get_rect().centery))
+
+    def resize(self, mainself):
+        
+        self.surface = pygame.Surface((600*mainself.Display.zoom,
+                                       600*mainself.Display.zoom))
         self.surface.fill(mainself.Scene.Game.Display.colors["rect-bg"])
