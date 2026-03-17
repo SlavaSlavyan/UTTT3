@@ -1,5 +1,5 @@
-# file to start the program
+# файл запуска
 
 from src.program import Program
 
-Program("DEV 3.0.1").main()
+Program("DEV 3.0.2").main()
