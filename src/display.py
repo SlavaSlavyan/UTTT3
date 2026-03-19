@@ -6,16 +6,7 @@ class Display:
 
         mainself.Log.write("Инициализация класса работы дисплея.","DEBUG")
 
-        self.colors = {
-            "global":{
-                "version-text":(171, 178, 191)
-            },
-            "game":{
-                "bg":(40, 44, 52),
-                "rect-bg":(33, 37, 43),
-                "line":(171, 178, 191)
-            }
-        }
+        self.colors = mainself.Json.load(mainself,"data\\palette")
         
         self.screen = pygame.display.set_mode((800,800),pygame.RESIZABLE)
         self.width, self.height = self.screen.get_size()

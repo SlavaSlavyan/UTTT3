@@ -2,7 +2,7 @@ import pygame
 
 class BgRect:
 
-    def __init__(self, mainself, size:float = 1):
+    def __init__(self, mainself, angle:int = 0, size:float = 1):
         
         self.size = size
         

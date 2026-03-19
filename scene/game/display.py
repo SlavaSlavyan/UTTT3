@@ -27,6 +27,7 @@ class Display:
         scene = mainself.Scene.Game
         
         scene.Bg.resize(mainself)
+        scene.SmallCells.resize(mainself)
         
         if scene.status == 0:
             

@@ -2,12 +2,14 @@
 
 import pygame
 import sys
+import time
 
 from src.display import Display
 from src.event import Event
 from util.scene import Scene
 from util.log import Log
 from util.asset import Asset
+from util.json import Json
 
 class Program:
 
@@ -15,11 +17,14 @@ class Program:
 
         self.Log = Log()
         self.Log.write("Инициализация основного класса.","DEBUG")
+        self.Log.write(f"Ultimate Tic Tac Toe версии {version} @SLL.","DEBUG")
 
+        self.Json = Json(self)
+
+        self.config = self.Json.load(self,"data\\config")
         self.version = version # версия игры
         self.status = "Game" # статус игры. Является ID сцен
 
-        self.Log.write(f"Ultimate Tic Tac Toe версии {version} @SLL.","DEBUG")
         self.Log.write(f"Начальная сцена {self.status}.","DEBUG")
         self.Log.write(f"Инициализация pygame","DEBUG")
 
@@ -36,6 +41,8 @@ class Program:
         self.Log.write("==========START==========","DEBUG")
         
         self.Scene.load(self,"Game")
+
+        self.Scene.Game.Display.start = time.perf_counter()
 
         while (True):
 
