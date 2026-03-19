@@ -1,12 +1,14 @@
 # файл загрузки сцен
 
+import traceback
+
 class Scene:
 
     def __init__(self, mainself):
 
         mainself.Log.write("Инициализация класса загрузки сцен.","DEBUG")
         
-        self.load(mainself, "Game") # загрузка первой сцены
+        self.loaded_list = []
     
     def load(self, mainself, name:str):
         '''
@@ -18,9 +20,16 @@ class Scene:
 
         mainself.Log.write(f"Загрузка сцены {name}.")
         
-        try:
-            exec(f"from scene.{name.lower()}.main import {name};self.{name} = {name}(mainself);")
-            mainself.Log.write(f"Загрузка сцены {name} прошла успешно!")
+        #try:
+            
+        exec(f"from scene.{name.lower()}.main import {name};self.{name} = {name}(mainself);")
+        
+        if name in self.loaded_list:
+            
+            self.loaded_list.append(name)
+            mainself.Log.write(f"Сцена {name} перезаписанна!")
+        
+        mainself.Log.write(f"Загрузка сцены {name} прошла успешно!")
 
-        except Exception as err:
-            mainself.Log.write(f"Ошибка загрузки сцены {name}!\nPython: {err}.","WARNING")
+        #except Exception as err:
+        #    mainself.Log.write(f"Ошибка загрузки сцены {name}!\n{traceback.format_exc()}.","WARNING")

@@ -1,6 +1,5 @@
 from scene.game.display import Display
 from scene.game.logic import Logic
-from scene.game.item import Item
 
 class Game:
 
@@ -8,6 +7,12 @@ class Game:
 
         self.status = 0
         
-        self.Item = Item(mainself)
+        mainself.Asset.load(mainself,"BgRect")
+        mainself.Asset.load(mainself,"Line")
+        
+        self.Bg = mainself.Asset.BgRect(mainself)
+        self.LineHorizontal = mainself.Asset.Line(mainself)
+        self.LineVertical = mainself.Asset.Line(mainself,90)
+        
         self.Display = Display(mainself)
         self.Logic = Logic(mainself)

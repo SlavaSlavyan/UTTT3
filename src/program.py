@@ -7,6 +7,7 @@ from src.display import Display
 from src.event import Event
 from util.scene import Scene
 from util.log import Log
+from util.asset import Asset
 
 class Program:
 
@@ -27,13 +28,14 @@ class Program:
         self.Display = Display(self)
         self.Event = Event(self)
         self.Scene = Scene(self)
-
-        self.Display.on_resize(self)
+        self.Asset = Asset(self)
 
     def main(self):
         '''Основная функция программы, которая запускает основной цикл'''
 
         self.Log.write("==========START==========","DEBUG")
+        
+        self.Scene.load(self,"Game")
 
         while (True):
 

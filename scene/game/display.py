@@ -5,29 +5,30 @@ from scene.game.displayData.animation import Animation
 class Display:
 
     def __init__(self, mainself):
-        
-        self.colors = mainself.Display.colors["game"]
 
         self.Animation = Animation(mainself)
 
     def main(self, mainself):
 
-        s = mainself.Scene.Game
+        scene = mainself.Scene.Game
 
-        mainself.Display.screen.fill(self.colors["bg"])
-
-        if s.status == 0:
+        mainself.Display.screen.fill(mainself.Display.colors["game"]["bg"])
+        
+        if scene.status == 0:
             
             self.Animation.main(mainself)
-
-            if self.Animation.t <= 0:
-
-                s.status = 1
+            
+            if self.Animation.time <= 0:
+                
+                scene.status = 1
 
     def on_resize(self, mainself):
 
-        s = mainself.Scene.Game
-
-        s.Item.BgRect.resize(mainself)
-        s.Item.Line.resize(mainself)
-        s.Item.Cells.resize(mainself)
+        scene = mainself.Scene.Game
+        
+        scene.Bg.resize(mainself)
+        
+        if scene.status == 0:
+            
+            scene.LineHorizontal.resize(mainself)
+            scene.LineVertical.resize(mainself)

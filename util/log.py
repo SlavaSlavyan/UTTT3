@@ -25,7 +25,7 @@ class Log:
                 Тип лога. Изначально INFO, но можно написать любой.
         '''
 
-        line = f"[{datetime.now().strftime("%H:%M:%S")}][{type}] {line}"
+        line = f"[{datetime.now().strftime("%H:%M:%S.%f")}][{type}] {line}"
         
         print(line)
         

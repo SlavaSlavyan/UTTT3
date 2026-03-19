@@ -29,7 +29,7 @@ class Display:
 
         mainself.Log.write("Изменение иконки и заголовка дисплея","DEBUG")
         pygame.display.set_caption(f"Ulimate Tic Tac Toe {mainself.version}")
-        pygame.display.set_icon(pygame.image.load("data\\assets\\small_icon.png"))
+        pygame.display.set_icon(pygame.image.load("data\\asset\\small_icon.png"))
 
         mainself.Log.write("Создание поверхности текста версии игры","DEBUG")
         self.text_version = pygame.font.Font("data\\font\\base.otf",7).render(f"vers: {mainself.version}", False, self.colors["global"]["version-text"])
