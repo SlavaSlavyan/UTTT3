@@ -33,9 +33,10 @@ class Animation:
 
                 scene.SmallCells.draw(mainself, (200*x + x*most*time,
                                                  200*y + y*most*time), size)
-        
 
-        scene.corner[0].draw(mainself,(200*-1,200*1))
-        scene.corner[1].draw(mainself,(200*-1,200*-1))
+        scene.corners[0].draw(mainself,(-375-most*time,375+most*time),(0,0))
+        scene.corners[1].draw(mainself,(-375-most*time,-375-most*time),(0,1))
+        scene.corners[2].draw(mainself,(375+most*time,-375-most*time),(1,1))
+        scene.corners[3].draw(mainself,(375+most*time,375+most*time),(1,0))
         
         self.time = self.time + self.speed/60*mainself.Display.speed

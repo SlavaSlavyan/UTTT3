@@ -26,5 +26,7 @@ class Event:
                 mainself.Display.on_resize(mainself)
             
             self.Mouse.main(mainself, event)
+            
+        exec(f"mainself.Scene.{mainself.status}.Logic.main(mainself)")
         
         self.Mouse.update(mainself)

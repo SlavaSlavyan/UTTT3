@@ -1,16 +1,19 @@
 import pygame
 import math
 
-class SelectCorner:
+class Corner:
 
-    def __init__(self, mainself, angle:int, base_size:float = 1):
+    def __init__(self, mainself, angle:int, base_size:float = 1, color:tuple = "DEFAULT"):
         
         self.base_size = base_size
         self.angle = angle
+        
+        if color == "DEFAULT":
+            self.color = mainself.Display.colors["game"]["select-corner"]
 
         self.resize(mainself)
 
-    def draw(self, mainself, pos:tuple, canvas:pygame.surface.Surface = "SCREEN"):
+    def draw(self, mainself, pos:tuple, rect_align:tuple, canvas:pygame.surface.Surface = "SCREEN"):
 
         display = mainself.Display
 
@@ -21,26 +24,20 @@ class SelectCorner:
         else:
             center = canvas.get_rect().center
 
-        rect = list(self.rect)
+        rect = (self.rect[0]*rect_align[0],self.rect[1]*rect_align[1])
 
-        if math.sin(math.radians(self.angle)) >= 0:
-            rect[0] = 0
-        
-        if math.cos(math.radians(self.angle)) >= 0:
-            rect[1] = 0
-
-        display.screen.blit(self.surface,(center[0] - rect[0] + pos[0]*display.zoom,
+        canvas.blit(self.surface,(center[0] - rect[0] + pos[0]*display.zoom,
                              center[1] - rect[1] - pos[1]*display.zoom))
 
     def resize(self, mainself):
 
         self.surface = pygame.Surface((4, 4), pygame.SRCALPHA)
 
-        pygame.draw.line(self.surface, mainself.Display.colors["game"]["select-corner"],(0,0),(0,3))
-        pygame.draw.line(self.surface, mainself.Display.colors["game"]["select-corner"],(0,0),(3,0))
+        pygame.draw.line(self.surface, self.color,(0,0),(0,3))
+        pygame.draw.line(self.surface, self.color,(0,0),(3,0))
 
         self.surface = pygame.transform.scale(self.surface, (200 * self.base_size * mainself.Display.zoom,
-                                                                   200 * self.base_size * mainself.Display.zoom))
+                                                             200 * self.base_size * mainself.Display.zoom))
         
         if self.angle != 0:
             self.surface = pygame.transform.rotate(self.surface, self.angle)

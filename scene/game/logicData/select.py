@@ -1,0 +1,19 @@
+import pygame
+
+class Select:
+    
+    def __init__(self, mainself):
+        pass
+    
+    def select_big_cell(self, mainself):
+        
+        x = (mainself.Event.Mouse.pos[0] - mainself.Display.width//2) / mainself.Display.zoom
+        y = (mainself.Event.Mouse.pos[1] - mainself.Display.height//2) / -mainself.Display.zoom
+        
+        for Y in range(3):
+            for X in range(3):
+                
+                if y < 300-200*Y and y > 100-200*Y and x > -300+200*X and x < -100+200*X:
+                    return X + 3*Y
+                    
+        return None

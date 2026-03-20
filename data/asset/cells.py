@@ -30,8 +30,12 @@ class Cells:
             rect = self.rect
             surface = self.surface
         
-        if transparency != "DEFAULT":
-            self.surface.set_alpha(transparency*255)
+        if transparency != "DEFAULT" and transparency != self.base_transparency:
+            
+            if surface == self.surface:
+                surface = self.surface.copy()
+            
+            surface.set_alpha(transparency*255)
 
         canvas.blit(surface,(center[0] - rect[0] + pos[0]*display.zoom,
                              center[1] - rect[1] - pos[1]*display.zoom))

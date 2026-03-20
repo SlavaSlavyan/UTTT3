@@ -8,7 +8,7 @@ class Display:
 
         self.colors = mainself.Json.load(mainself,"data\\palette")
         
-        self.screen = pygame.display.set_mode((800,800),pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode(mainself.config["screen-size"],pygame.RESIZABLE)
         self.width, self.height = self.screen.get_size()
         self.zoom = min(self.screen.get_size())/800
 
