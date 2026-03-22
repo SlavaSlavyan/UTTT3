@@ -22,8 +22,8 @@ class Cells:
             center = canvas.get_rect().center
 
         if size != "DEFAULT":
-            rect = (self.rect[0]*display.zoom*size,
-                    self.rect[1]*display.zoom*size)
+            rect = (self.rect[0]*size,
+                    self.rect[1]*size)
             surface = pygame.transform.smoothscale(self.surface, (rect[0]*2,rect[1]*2))
             
         else:

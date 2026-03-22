@@ -27,6 +27,8 @@ class Display:
                 del scene.LineHorizontal, scene.LineVertical
                 
                 scene.Select = mainself.Asset.Select(mainself)
+                scene.SmallCircle = mainself.Asset.Circle(mainself,0.20)
+                scene.SmallCross = mainself.Asset.Cross(mainself,0.20)
 
                 self.on_resize(mainself)
 
@@ -55,3 +57,5 @@ class Display:
             cells.draw(mainself,(0,0), canvas=scene.Bg.surface)
             
             scene.Select.resize(mainself)
+            scene.SmallCircle.resize(mainself)
+            scene.SmallCross.resize(mainself)

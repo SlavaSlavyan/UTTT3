@@ -12,6 +12,8 @@ class Game:
         mainself.Asset.load(mainself,"Cells")
         mainself.Asset.load(mainself,"Corner")
         mainself.Asset.load(mainself,"Select")
+        mainself.Asset.load(mainself,"Circle")
+        mainself.Asset.load(mainself,"Cross")
         
         self.Bg = mainself.Asset.BgRect(mainself)
         self.LineHorizontal = mainself.Asset.Line(mainself)

@@ -7,24 +7,18 @@ class Display:
         mainself.Log.write("Инициализация класса работы дисплея.","DEBUG")
 
         self.colors = mainself.Json.load(mainself,"data\\palette")
-        
-        self.screen = pygame.display.set_mode(mainself.config["screen-size"],pygame.RESIZABLE)
-        self.width, self.height = self.screen.get_size()
-        self.zoom = min(self.screen.get_size())/800
+
+        self.reload_screen(mainself)
 
         mainself.Log.write(f"Начальные значения размера экрана {self.screen.get_size()}")
         mainself.Log.write(f"Начальные значения приближения = {self.zoom}")
 
-        mainself.Log.write("Инициализация класса обработки времени отображения кадров.","DEBUG")
-        self.Clock = pygame.time.Clock()
-
         mainself.Log.write("Изменение иконки и заголовка дисплея","DEBUG")
-        pygame.display.set_caption(f"Ulimate Tic Tac Toe {mainself.version}")
+        pygame.display.set_caption(f"Ulimate Tic Tac Toe")
         pygame.display.set_icon(pygame.image.load("data\\asset\\small_icon.png"))
 
-        mainself.Log.write("Создание поверхности текста версии игры","DEBUG")
-        self.text_version = pygame.font.Font("data\\font\\base.otf",7).render(f"vers: {mainself.version}", False, self.colors["global"]["version-text"])
-        self.text_version.set_alpha(255/4)
+        mainself.Log.write("Инициализация класса обработки времени отображения кадров.","DEBUG")
+        self.Clock = pygame.time.Clock()
 
     def main(self, mainself):
         '''Отрисовка сцены и расчёт глобальных переменных для отрисовки'''
@@ -35,8 +29,7 @@ class Display:
 
         exec(f"mainself.Scene.{mainself.status}.Display.main(mainself)")
 
-        self.screen.blit(self.text_version,(self.width - self.text_version.get_width() - 5,
-                                            self.height - self.text_version.get_height()))
+        self.DebugText.main(mainself)
 
     def on_resize(self, mainself):
         '''
@@ -53,3 +46,16 @@ class Display:
         mainself.Log.write(f"Новые значения приближения = {self.zoom}")
 
         exec(f"mainself.Scene.{mainself.status}.Display.on_resize(mainself)")
+    
+    def reload_screen(self, mainself):
+
+        mainself.Log.write("Обновление экрана!")
+        
+        if mainself.config["fullscreen"]:
+            self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+
+        else:
+            self.screen = pygame.display.set_mode(mainself.config["screen-size"],pygame.RESIZABLE)
+        
+        self.width, self.height = self.screen.get_size()
+        self.zoom = min(self.screen.get_size())/800

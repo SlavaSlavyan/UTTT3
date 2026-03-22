@@ -10,6 +10,7 @@ from util.scene import Scene
 from util.log import Log
 from util.asset import Asset
 from util.json import Json
+from util.debugText import DebugText
 
 class Program:
 
@@ -39,6 +40,8 @@ class Program:
         '''Основная функция программы, которая запускает основной цикл'''
 
         self.Log.write("==========START==========","DEBUG")
+
+        self.Display.DebugText = DebugText(self)
         
         self.Scene.load(self,"Game")
 
@@ -52,7 +55,7 @@ class Program:
 
             pygame.display.flip()
 
-            self.Display.Clock.tick(60)
+            self.Display.Clock.tick(self.config["max-fps"])
 
     def stop(self):
         '''Функция для корректной остановки игры'''
