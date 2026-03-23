@@ -4,6 +4,8 @@ class Select:
     
     def __init__(self, mainself, base_size:float = 1, color:tuple = "DEFAULT"):
         
+        mainself.Log.write(f"Создан экземпляр спрайта выбора клетки.\nБазовый размер = {base_size}\nЦвет = {color}","DEBUG")
+        
         self.base_size = base_size
         self.color = color
         
@@ -46,6 +48,8 @@ class Select:
         self.logic(mainself)
     
     def resize(self, mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта выбора клетки")
         
         self.surface = pygame.Surface((750 * mainself.Display.zoom,
                                        750 * mainself.Display.zoom),

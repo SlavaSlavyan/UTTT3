@@ -5,6 +5,8 @@ class Animation:
 
     def __init__(self, mainself):
         
+        mainself.Log.write("Инициализация класса отображения анимации сцены Game.","DEBUG")
+        
         self.time = 1
         self.speed = -1
 

@@ -6,6 +6,8 @@ from scene.game.displayData.game import Game
 class Display:
 
     def __init__(self, mainself):
+        
+        mainself.Log.write("Инициализация класса отображения сцены Game.","DEBUG")
 
         self.Animation = Animation(mainself)
         self.Game = Game(mainself)
@@ -22,9 +24,9 @@ class Display:
             
             if self.Animation.time <= 0:
                 
-                scene.status = 1
+                mainself.Log.write("Новый статус сцены Game. (1)")
                 
-                del scene.LineHorizontal, scene.LineVertical
+                scene.status = 1
                 
                 scene.Select = mainself.Asset.Select(mainself)
                 scene.SmallCircle = mainself.Asset.Circle(mainself,0.20)
@@ -37,6 +39,8 @@ class Display:
             self.Game.main(mainself)
 
     def on_resize(self, mainself):
+        
+        mainself.Log.write("Перерисовка сцены Game.")
 
         scene = mainself.Scene.Game
         

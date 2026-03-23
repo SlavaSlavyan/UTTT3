@@ -3,7 +3,8 @@ import pygame
 class Select:
     
     def __init__(self, mainself):
-        pass
+        
+        mainself.Log.write("Инициализация класса выбора клеток в сцене Game.","DEBUG")
     
     def select_big_cell(self, mainself):
         

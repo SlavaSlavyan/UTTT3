@@ -7,6 +7,8 @@ class Game:
     
     def __init__(self, mainself):
         
+        mainself.Log.write("Инициализация класса отображения игры сцены Game.","DEBUG")
+        
         self.Cells = Cells(mainself)
         self.Figures = Figures(mainself)
     

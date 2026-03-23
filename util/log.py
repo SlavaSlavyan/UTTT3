@@ -13,6 +13,8 @@ class Log:
             os.remove(self.path)
 
         self.last_logs = []
+        
+        self.save_value = 1
 
         self.write("==========INIT==========","DEBUG")
         
@@ -31,7 +33,7 @@ class Log:
         
         self.last_logs.append(line)
 
-        if len(self.last_logs) > 255:
+        if len(self.last_logs) > self.save_value:
             self.save()
             self.last_logs.clear()
 

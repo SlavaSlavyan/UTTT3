@@ -1,9 +1,10 @@
 import pygame
-import math
 
 class Corner:
 
     def __init__(self, mainself, angle:int, base_size:float = 1, color:tuple = "DEFAULT"):
+        
+        mainself.Log.write(f"Создан экземпляр спрайта уголка выделения клетки.\nПоворот = {angle}\nНачальный размер = {base_size}\nЦвет = {color}","DEBUG")
         
         self.base_size = base_size
         self.angle = angle
@@ -30,6 +31,8 @@ class Corner:
                              center[1] - rect[1] - pos[1]*display.zoom))
 
     def resize(self, mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта уголка выделения клетки.")
 
         self.surface = pygame.Surface((4, 4), pygame.SRCALPHA)
 

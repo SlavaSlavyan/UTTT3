@@ -3,6 +3,8 @@ import pygame
 class DebugText:
 
     def __init__(self, mainself):
+        
+        mainself.Log.write("Инициализация класса отладки.","DEBUG")
 
         self.debug_font = pygame.font.Font("data\\font\\debug.otf",5)
         
@@ -24,3 +26,5 @@ class DebugText:
         self.version_text.set_alpha(255/4)
 
         self.version_text_size = self.version_text.get_size()
+        
+        mainself.Log.write("Создана поверхность отрисовки версии.")

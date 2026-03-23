@@ -4,6 +4,8 @@ class Cells:
 
     def __init__(self, mainself, transparency:float = 1, size:int = 1, line_width:int = 5):
         
+        mainself.Log.write(f"Создан экземпляр спрайта клеток.\nПрозрачность = {transparency}\nРазмер = {size}\nШирина линий = {line_width}","DEBUG")
+        
         self.base_transparency = transparency
         self.base_size = size
         self.line_width = line_width
@@ -41,6 +43,8 @@ class Cells:
                              center[1] - rect[1] - pos[1]*display.zoom))
 
     def resize(self, mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта клеток")
 
         self.surface = pygame.Surface((600 * self.base_size * mainself.Display.zoom,
                                        600 * self.base_size * mainself.Display.zoom),

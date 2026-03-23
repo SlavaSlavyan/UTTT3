@@ -4,6 +4,8 @@ from scene.game.logic import Logic
 class Game:
 
     def __init__(self, mainself):
+        
+        mainself.Log.write("Инициализация сцены Game.","DEBUG")
 
         self.status = 0
         

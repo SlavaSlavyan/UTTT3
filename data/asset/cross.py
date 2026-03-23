@@ -4,6 +4,8 @@ class Cross:
 
     def __init__(self, mainself, size:float = 1):
         
+        mainself.Log.write(f"Создан экземпляр спрайта крестика.\nРазмер = {size}","DEBUG")
+        
         self.base_size = size
         
         self.resize(mainself)
@@ -34,6 +36,8 @@ class Cross:
                              center[1] - rect[1] - pos[1]*display.zoom))
 
     def resize(self,mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта крестика")
         
         line = pygame.Surface((1,3),pygame.SRCALPHA)
 

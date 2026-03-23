@@ -45,8 +45,6 @@ class Program:
         
         self.Scene.load(self,"Game")
 
-        self.Scene.Game.Display.start = time.perf_counter()
-
         while (True):
 
             self.Event.main(self)

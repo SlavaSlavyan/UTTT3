@@ -7,6 +7,8 @@ class Logic:
 
     def __init__(self, mainself):
         
+        mainself.Log.write("Инициализация класса логики сцены Game.","DEBUG")
+        
         self.Select = Select(mainself)
         self.Game = Game(mainself)
         

@@ -4,6 +4,8 @@ class Circle:
 
     def __init__(self, mainself, size:float = 1):
         
+        mainself.Log.write(f"Создан экземпляр спрайта нолика.\nРазмер = {size}","DEBUG")
+        
         self.base_size = size
         
         self.resize(mainself)
@@ -34,6 +36,8 @@ class Circle:
                              center[1] - rect[1] - pos[1]*display.zoom))
 
     def resize(self,mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта нолика")
         
         self.surface = pygame.Surface((200 * self.base_size * mainself.Display.zoom,
                                        200 * self.base_size * mainself.Display.zoom),

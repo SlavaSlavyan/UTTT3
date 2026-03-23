@@ -4,6 +4,8 @@ class Line:
 
     def __init__(self, mainself, angle:int = 0, width:int = 5):
         
+        mainself.Log.write(f"Создан экземпляр спрайта линии.\nПоворот = {angle}\nШирина = {width}","DEBUG")
+        
         self.angle = angle
         self.width = width
         
@@ -24,6 +26,8 @@ class Line:
                              center[1] - self.rect[1] - pos[1]*display.zoom))
 
     def resize(self, mainself):
+        
+        mainself.Log.write(f"Перерисовка спрайта линии")
 
         self.surface = pygame.Surface((600*mainself.Display.zoom,
                                        self.width*mainself.Display.zoom))

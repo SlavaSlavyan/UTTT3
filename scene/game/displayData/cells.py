@@ -4,6 +4,8 @@ class Cells:
     
     def __init__(self,mainself):
         
+        mainself.Log.write("Инициализация класса отображения клеток сцены Game.","DEBUG")
+        
         self.cells_transparency = []
         
         for i in range(9):

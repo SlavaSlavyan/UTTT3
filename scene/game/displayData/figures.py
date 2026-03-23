@@ -2,6 +2,8 @@ class Figures:
 
     def __init__(self, mainself):
         
+        mainself.Log.write("Инициализация класса отображения фигур сцены Game.","DEBUG")
+        
         self.small_figure_sizes = []
 
         for i in range(9):
