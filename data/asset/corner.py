@@ -11,6 +11,8 @@ class Corner:
         
         if color == "DEFAULT":
             self.color = mainself.Display.colors["game"]["select-corner"]
+        else:
+            self.color = color
 
         self.resize(mainself)
 

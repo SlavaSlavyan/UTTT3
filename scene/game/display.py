@@ -29,8 +29,13 @@ class Display:
                 scene.status = 1
                 
                 scene.Select = mainself.Asset.Select(mainself)
+                scene.Selecting0 = mainself.Asset.Select(mainself,0.25,mainself.Display.colors["game"]["circle"])
+                scene.SelectingX = mainself.Asset.Select(mainself,0.25,mainself.Display.colors["game"]["cross"])
+                scene.UnablSelecting = mainself.Asset.Select(mainself,0.25,mainself.Display.colors["game"]["unavailable"])
                 scene.SmallCircle = mainself.Asset.Circle(mainself,0.20)
                 scene.SmallCross = mainself.Asset.Cross(mainself,0.20)
+                scene.BigCircle = mainself.Asset.Circle(mainself,0.75)
+                scene.BigCross = mainself.Asset.Cross(mainself,0.75)
 
                 self.on_resize(mainself)
 
@@ -61,5 +66,10 @@ class Display:
             cells.draw(mainself,(0,0), canvas=scene.Bg.surface)
             
             scene.Select.resize(mainself)
+            scene.Selecting0.resize(mainself)
+            scene.SelectingX.resize(mainself)
+            scene.UnablSelecting.resize(mainself)
             scene.SmallCircle.resize(mainself)
             scene.SmallCross.resize(mainself)
+            scene.BigCircle.resize(mainself)
+            scene.BigCross.resize(mainself)

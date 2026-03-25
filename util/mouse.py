@@ -44,7 +44,7 @@ class Mouse:
                     self.keys[i]["press"] = True
                     self.keys[i]["hold"] = True
 
-                    mainself.Log.write(f"Зажата клавиша {i} на позиции {self.pos}.\n{self.keys[i]}")
+                    mainself.Log.write(f"Зажата кнопка {i} на позиции {self.pos}.")
 
         if event.type == pygame.MOUSEBUTTONUP:
                 
@@ -54,7 +54,7 @@ class Mouse:
                     self.keys[i]["release"] = True
                     self.keys[i]["hold"] = False
 
-                    mainself.Log.write(f"Отжата клавиша {i} на позиции {self.pos}.\n{self.keys[i]}")
+                    mainself.Log.write(f"Отжата кнопка {i} на позиции {self.pos}.")
 
     def update(self, mainself):
         '''

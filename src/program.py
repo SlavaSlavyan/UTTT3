@@ -53,6 +53,8 @@ class Program:
 
             pygame.display.flip()
 
+            self.Event.update(self)
+
             self.Display.Clock.tick(self.config["max-fps"])
 
     def stop(self):

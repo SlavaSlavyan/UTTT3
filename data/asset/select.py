@@ -16,11 +16,11 @@ class Select:
         
         self.resize(mainself)
     
-    def draw(self, mainself, pos:int = "LOCAL", size:float = "DEFAULT"):
+    def draw(self, mainself, pos:int = "LOCAL", size:float = "DEFAULT", transparency:float = 1):
         
         display = mainself.Display
         
-        if size == "DEFAULT" or size == self.base_size:
+        if size == "DEFAULT":
             
             surface = self.surface
             size = self.base_size
@@ -31,12 +31,19 @@ class Select:
             if size == "LOCAL":
                 size = self.size
                 
-            surface = pygame.transform.scale(self.surface,
-                                   (750 * display.zoom * size,
-                                    750 * display.zoom * size)),
+            surface = pygame.transform.smoothscale(self.surface,
+                                   (750 * display.zoom * size * self.base_size,
+                                    750 * display.zoom * size * self.base_size)),
             surface = surface[0]
             
             rect = surface.get_rect().center
+        
+        if transparency != 1:
+            
+            if surface == self.surface:
+                surface = self.surface.copy()
+            
+            surface.set_alpha(transparency*255)
         
         if pos == "LOCAL":
             pos = (self.pos[0] + self.offset[0], self.pos[1] + self.offset[1])

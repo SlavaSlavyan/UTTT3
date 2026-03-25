@@ -1,0 +1,45 @@
+import pygame
+
+class KeyBoard:
+
+    def __init__(self, mainself):
+        
+        mainself.Log.write("Инициализация класса обработки клавиатуры.","DEBUG")
+
+        self.keys = mainself.Json.load(mainself,"data\\bind")
+
+        mainself.Log.write("Начальные значения клавиш:")
+
+        for i in self.keys:
+
+            self.keys[i] = {"id":self.keys[i], "press":False, "hold":False, "release":False}
+            mainself.Log.write(f"    {i} = {self.keys[i]};")
+
+    def main(self, mainself, event:pygame.event.EventType):
+
+        if event.type == pygame.KEYDOWN:
+                
+            for i in self.keys: 
+                if event.key == self.keys[i]["id"]:
+                    
+                    self.keys[i]["press"] = True
+                    self.keys[i]["hold"] = True
+
+                    mainself.Log.write(f"Зажата клавиша {i} [{self.keys[i]["id"]}]")
+
+        if event.type == pygame.KEYUP:
+                
+            for i in self.keys: 
+                if event.key == self.keys[i]["id"]:
+                    
+                    self.keys[i]["release"] = True
+                    self.keys[i]["hold"] = False
+
+                    mainself.Log.write(f"Отжата клавиша {i} [{self.keys[i]["id"]}]")
+
+    def update(self, mainself):
+
+        for i in self.keys:
+
+            self.keys[i]["press"] = False
+            self.keys[i]["release"] = False

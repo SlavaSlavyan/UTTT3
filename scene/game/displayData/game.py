@@ -2,6 +2,7 @@ import pygame
 
 from scene.game.displayData.cells import Cells
 from scene.game.displayData.figures import Figures
+from scene.game.displayData.selecting import Selecting
 
 class Game:
     
@@ -11,6 +12,7 @@ class Game:
         
         self.Cells = Cells(mainself)
         self.Figures = Figures(mainself)
+        self.Selecting = Selecting(mainself)
     
     def main(self, mainself):
         
@@ -21,5 +23,6 @@ class Game:
         self.Cells.main(mainself)
         
         self.Figures.main(mainself)
+        self.Selecting.main(mainself)
 
         scene.Select.draw(mainself, "LOCAL", "LOCAL")

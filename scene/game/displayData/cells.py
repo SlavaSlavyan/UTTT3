@@ -15,25 +15,46 @@ class Cells:
         
         scene = mainself.Scene.Game
         
-        for y in range(3):
-            for x in range(3):
+        for i in range(9):
+            
+            if self.cells_transparency[i] != 0:
 
-                scene.SmallCells.draw(mainself, (200*(x-1),
-                                                 -200*(y-1)), 
-                                      transparency=self.cells_transparency[x + 3*y])
+                scene.SmallCells.draw(mainself, (200*(i%3-1),
+                                                -200*(i//3-1)), 
+                                    transparency=self.cells_transparency[i])
+
+            self.new_size(mainself,self.cells_transparency,i)
+    
+    def new_size(self, mainself, cell, i):
+
+        cells = mainself.Scene.Game.Logic.Game.cells
+        
+        if None in cells[i] or len(set(cells[i])) != 1:
+            
+            if mainself.Scene.Game.Logic.Game.selected_cell == i:
                 
-                if scene.Logic.Game.selected_cell == x + 3*y:
-                    
-                    if self.cells_transparency[x + 3*y] < 1:
-                        self.cells_transparency[x + 3*y] += 1/30 * mainself.Display.speed
-                    
-                    if self.cells_transparency[x + 3*y] > 1:
-                        self.cells_transparency[x + 3*y] = 1
+                if cell[i] < 1:
+                    cell[i] += 1/30 * mainself.Display.speed
+                
+                if cell[i] > 1:
+                    cell[i] = 1
+                
+                return None
 
-                else:
-                    
-                    if self.cells_transparency[x + 3*y] > 0.25:
-                        self.cells_transparency[x + 3*y] -= 1/30 * mainself.Display.speed
-                    
-                    if self.cells_transparency[x + 3*y] < 0.25:
-                        self.cells_transparency[x + 3*y] = 0.25
+                
+            if cell[i] > 0.25:
+                cell[i] -= 1/30 * mainself.Display.speed
+            
+            if cell[i] < 0.25:
+                cell[i] += 1/30 * mainself.Display.speed
+
+                if cell[i] > 0.25:
+                    cell[i] = 0.25
+
+            return None
+
+        if cell[i] > 0:
+            cell[i] -= 1/45 * mainself.Display.speed
+        
+        if cell[i] < 0:
+            cell[i] = 0
