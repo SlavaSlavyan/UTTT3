@@ -74,7 +74,7 @@ try:
 
     from src.program import Program
 
-    Program = Program("DEV 3.0.6")
+    Program = Program("DEV 3.0.7")
     
     Program.main()
     

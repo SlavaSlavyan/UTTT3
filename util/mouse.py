@@ -66,3 +66,12 @@ class Mouse:
 
             self.keys[i]["press"] = False
             self.keys[i]["release"] = False
+    
+    def formated_keys(self):
+        
+        string = ""
+        
+        for i in self.keys:
+            string += f"\n    {i}:{self.keys[i]["hold"]}"
+        
+        return string

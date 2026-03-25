@@ -11,6 +11,8 @@ class Event:
         
         self.Mouse = Mouse(mainself)
         self.KeyBoard = KeyBoard(mainself)
+        
+        self.mode = "MOUSE"
 
     def main(self, mainself):
         '''отвечает за все происходящие события в pygame'''
@@ -41,6 +43,16 @@ class Event:
 
             mainself.Display.reload_screen(mainself)
             mainself.Display.on_resize(mainself)
+        
+        if self.KeyBoard.keys["debug"]["press"]:
+
+            if mainself.config["debug"]:
+                mainself.config["debug"] = False
+                mainself.Log.write("Отладка выключена.")
+                
+            else:
+                mainself.config["debug"] = True
+                mainself.Log.write("Отладка включена.")
             
         exec(f"mainself.Scene.{mainself.status}.Logic.main(mainself)")
         

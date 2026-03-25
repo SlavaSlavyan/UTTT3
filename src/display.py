@@ -16,6 +16,7 @@ class Display:
         mainself.Log.write("Изменение иконки и заголовка дисплея","DEBUG")
         pygame.display.set_caption(f"Ulimate Tic Tac Toe")
         pygame.display.set_icon(pygame.image.load("data\\asset\\small_icon.png"))
+        pygame.mouse.set_visible(False)
 
         mainself.Log.write("Инициализация класса обработки времени отображения кадров.","DEBUG")
         self.Clock = pygame.time.Clock()
@@ -30,6 +31,7 @@ class Display:
         exec(f"mainself.Scene.{mainself.status}.Display.main(mainself)")
 
         self.DebugText.main(mainself)
+        self.Cursor.draw(mainself)
 
     def on_resize(self, mainself):
         '''

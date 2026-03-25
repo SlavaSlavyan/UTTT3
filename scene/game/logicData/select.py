@@ -4,13 +4,11 @@ class Select:
         
         mainself.Log.write("Инициализация класса выбора клеток в сцене Game.","DEBUG")
 
-        self.mode = "MOUSE"
-
         self.selecting = None
     
     def select_big_cell(self, mainself):
 
-        if self.mode == "MOUSE":
+        if mainself.Event.mode == "MOUSE":
         
             x = (mainself.Event.Mouse.pos[0] - mainself.Display.width//2) / mainself.Display.zoom
             y = (mainself.Event.Mouse.pos[1] - mainself.Display.height//2) / -mainself.Display.zoom
@@ -29,7 +27,7 @@ class Select:
     
     def select_small_cell(self, mainself):
 
-        if self.mode == "MOUSE":
+        if mainself.Event.mode == "MOUSE":
 
             x = (mainself.Event.Mouse.pos[0] - mainself.Display.width//2 - 200*(mainself.Scene.Game.Logic.Game.selected_cell%3-1)*mainself.Display.zoom) / mainself.Display.zoom
             y = (mainself.Event.Mouse.pos[1] - mainself.Display.height//2 - 200*(mainself.Scene.Game.Logic.Game.selected_cell//3-1)*mainself.Display.zoom) / -mainself.Display.zoom
@@ -65,13 +63,13 @@ class Select:
     
     def update_mode(self, mainself):
 
-        if self.mode == "MOUSE":
+        if mainself.Event.mode == "MOUSE":
 
             keys = mainself.Event.KeyBoard.keys
 
             if keys["input"]["press"] or keys["down"]["press"] or keys["up"]["press"] or keys["left"]["press"] or keys["right"]["press"]:
 
-                self.mode = "KEYBOARD"
+                mainself.Event.mode = "KEYBOARD"
                 self.selecting = 4
 
                 return True
@@ -82,7 +80,7 @@ class Select:
 
             if keys["lt"]["press"] or keys["md"]["press"] or keys["rt"]["press"]:
 
-                self.mode = "MOUSE"
+                mainself.Event.mode = "MOUSE"
                 self.selecting = None
 
                 return True

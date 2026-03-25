@@ -42,7 +42,8 @@ class Program:
         self.Log.write("==========START==========","DEBUG")
 
         self.Display.DebugText = DebugText(self)
-        
+        self.Asset.load(self,"Cursor")
+        self.Display.Cursor = self.Asset.Cursor(self)
         self.Scene.load(self,"Game")
 
         while (True):

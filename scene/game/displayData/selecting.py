@@ -27,7 +27,7 @@ class Selecting:
                                     -200*(self.selecting_cell//3-1)),
                                     transparency = math.sin(self.time)/4+0.25)
                 
-            elif scene.Logic.Select.mode == "KEYBOARD":
+            elif mainself.Event.mode == "KEYBOARD":
 
                 asset = scene.UnablSelecting
 
@@ -51,7 +51,7 @@ class Selecting:
                                 -200*(scene.Logic.Game.selected_cell//3-1)-50*(self.selecting_cell//3-1)),
                                 transparency = math.sin(self.time)/4+0.25)
             
-            elif scene.Logic.Select.mode == "KEYBOARD":
+            elif mainself.Event.mode == "KEYBOARD":
 
                 asset = scene.UnablSelecting
 
