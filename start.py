@@ -14,7 +14,7 @@ class SimpleDisplay:
         turtle.up()
         
         self.screen = turtle.Screen()
-        self.screen.setup(width=800, height=600)
+        self.screen.setup(width=600, height=400)
         self.screen.listen()
         
         self.screen.onkey(self.up, "Up") 
@@ -42,7 +42,7 @@ class SimpleDisplay:
             return data
 
         except:
-            return "NO DATA FOUND"
+            return "NO DATA FOUND\n"
     
     def update(self):
         
