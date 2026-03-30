@@ -9,9 +9,6 @@ class Log:
 
         self.path = "data\\log\\last.log"
 
-        if os.path.exists(self.path):
-            os.remove(self.path)
-
         self.last_logs = []
         
         self.save_value = 1

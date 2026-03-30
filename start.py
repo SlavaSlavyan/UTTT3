@@ -1,82 +1,99 @@
-# файл запуска
-
-import turtle
+import os
 import traceback
+import tkinter
+
+from tkinter import font
 
 class SimpleDisplay:
+    '''Класс простого дисплея для отображения критических ошибок'''
     
-    def __init__(self):
+    def __init__(self, error_text:str):
+        '''- **error_text**: лог ошибки которую надо вывести'''
         
-        turtle.hideturtle()
-        turtle.bgcolor((0,0,0))
-        turtle.pencolor((1,1,1))
-        turtle.tracer(0)
-        turtle.up()
+        self.error_text = error_text
         
-        self.screen = turtle.Screen()
-        self.screen.setup(width=600, height=400)
-        self.screen.listen()
+        # настройка окна
+        self.root = tkinter.Tk()
+        self.root.title("Ultimate Tic Tac Toe crash")
+        self.root.geometry("800x600")
         
-        self.screen.onkey(self.up, "Up") 
-        self.screen.onkey(self.down, "Down")
-        self.screen.onkey(self.increase, "+") 
-        self.screen.onkey(self.decrease, "minus")  
+        # шрифт текста (для удобного изменения размера)
+        self.font = font.Font(family="Consolas", size=8) 
         
-        self.scroll = 0
-        self.size = 8
+        # бинд клавиш
+        self.root.bind("-", lambda e: self.change_size(-2))
+        self.root.bind("_", lambda e: self.change_size(-2))
+        self.root.bind("+", lambda e: self.change_size(2))
+        self.root.bind("=", lambda e: self.change_size(2))
+
+    def main(self):
+        '''Отрисовка экрана'''
+
+        # создаём поверхность для текста
+        frame = tkinter.Frame(self.root)
+        frame.pack(expand=True, fill='both')
+
+        # создаём полоску прокрутки
+        scrollbar = tkinter.Scrollbar(frame)
+        scrollbar.pack(side='right', fill='y')
+
+        # создаём текст используя созданный шрифт
+        text = tkinter.Text(frame, wrap='word', yscrollcommand=scrollbar.set, bg='black', fg='white', font=self.font)
+        text.pack(side='left', expand=True, fill='both')
+
+        # биндим скролл текста
+        scrollbar.config(command=text.yview)
         
-    def main(self, text):
+        # отрисовываем текст
+        text.insert('end', self.error_text)
         
-        self.data = self.load_log("data\\log\\last")
-        self.data += text
+        # запускаем основной цикл окна
+        self.root.mainloop()
         
-        while True:
-            self.update()
-            
-    def load_log(self, path):
+    def load_log(path:str) -> str:
+        '''Загрузка лога. Возвращает строки лога
+        - **path**: путь до файла'''
         
         try:
-            with open(f"{path}.log", "r", encoding="utf-8") as file:
-                data = file.read()
-
-            return data
-
-        except:
-            return "NO DATA FOUND\n"
-    
-    def update(self):
-        
-        turtle.clear()
-        
-        turtle.goto(0,self.screen.window_height()//2-60)
-        turtle.write("UTTT CRASH!", align="center", font=("Consolas",40,"normal"))
-        
-        turtle.goto(-self.screen.window_width()//2+self.size,-self.screen.window_height()//2+self.scroll*self.size*2)
-        turtle.write(self.data, font=("Consolas",self.size,"normal"))
-        
-        turtle.update()
-
-    def up(self):
-        if self.scroll != 0:
-            self.scroll += 1
-    
-    def down(self):
-        self.scroll -= 1
+            with open(path,"r",encoding='utf-8') as file:
+                return file.read()
             
-    def increase(self):
-        self.size += 1
+        # в случае ошибки вернёт ненаход
+        except:
+            return "NO LOG DATA FOUND\n"
         
-    def decrease(self):
-        if self.size != 1:
-            self.size -= 1
+    def change_size(self, delta:int):
+        '''Динамическое изменение размера текста.\n
+        Функция используется в бинде клавиш
+        - **delta**: число которое будет прибавленно к текущему размеру'''
+        
+        # получаем нынешний размер шрифта
+        current_size = self.font.actual("size")
+        
+        # ставим новый
+        new_size = max(8, current_size + delta)
+        self.font.configure(size=new_size)
+        
+        
+# удаляем старый лог    
+if os.path.exists("data\\log\\last.log"):
+    os.remove("data\\log\\last.log")
         
 try:
 
     from src.program import Program
 
-    Program = Program("DEV 3.0.7")
+    # экземпляр основного класса
+    Program = Program("DEV 3.0.8")
     
-    Program.main()
+    Program.starter()
+    
+    # основной цикл
+    while True:
+        Program.main()
     
 except Exception as err:
-    SimpleDisplay().main(traceback.format_exc())
+    
+    # Лог создаётся из полученной информации из файла последнего лога и самой ошибки
+    log = SimpleDisplay.load_log("data\\log\\last.log") + traceback.format_exc()
+    SimpleDisplay(log).main()

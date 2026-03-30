@@ -35,10 +35,10 @@ class Program:
         self.Event = Event(self)
         self.Scene = Scene(self)
         self.Asset = Asset(self)
-
-    def main(self):
-        '''Основная функция программы, которая запускает основной цикл'''
-
+    
+    def starter(self):
+        '''Функция которая выполняется до запуска программы'''
+        
         self.Log.write("==========START==========","DEBUG")
 
         self.Display.DebugText = DebugText(self)
@@ -46,17 +46,18 @@ class Program:
         self.Display.Cursor = self.Asset.Cursor(self)
         self.Scene.load(self,"Game")
 
-        while (True):
+    def main(self):
+        '''Основная функция программы'''
 
-            self.Event.main(self)
+        self.Event.main(self)
 
-            self.Display.main(self)
+        self.Display.main(self)
 
-            pygame.display.flip()
+        pygame.display.flip()
 
-            self.Event.update(self)
+        self.Event.update(self)
 
-            self.Display.Clock.tick(self.config["max-fps"])
+        self.Display.Clock.tick(self.config["max-fps"])
 
     def stop(self):
         '''Функция для корректной остановки игры'''

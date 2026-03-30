@@ -1,5 +1,3 @@
-# файл загрузки сцен
-
 import traceback
 
 class Scene:
