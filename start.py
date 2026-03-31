@@ -5,7 +5,7 @@ import tkinter
 from tkinter import font
 
 class SimpleDisplay:
-    '''Класс простого дисплея для отображения критических ошибок'''
+    '''Простой дисплей для отрисовки ошибок'''
     
     def __init__(self, error_text:str):
         '''- **error_text**: лог ошибки которую надо вывести'''
@@ -25,6 +25,13 @@ class SimpleDisplay:
         self.root.bind("_", lambda e: self.change_size(-2))
         self.root.bind("+", lambda e: self.change_size(2))
         self.root.bind("=", lambda e: self.change_size(2))
+        
+        # пробуем загрузить иконку для окна
+        try:
+            icon = tkinter.PhotoImage(file='data\\asset\\small_icon.png')
+            self.root.iconphoto(False, icon)
+        except:
+            pass
 
     def main(self):
         '''Отрисовка экрана'''
