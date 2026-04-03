@@ -1,8 +1,5 @@
-# основной файл. Ядро программы
-
 import pygame
 import sys
-import time
 
 from src.display import Display
 from src.event import Event
@@ -11,18 +8,25 @@ from util.log import Log
 from util.asset import Asset
 from util.json import Json
 from util.debugText import DebugText
+from util.checkFile import CheckFile
 
 class Program:
+    '''Главный класс программы'''
 
     def __init__(self, version:str):
+        '''- **version**: версия программы'''
 
+        # подгружаем логи
         self.Log = Log()
         self.Log.write("Инициализация основного класса.","DEBUG")
         self.Log.write(f"Ultimate Tic Tac Toe версии {version} @SLL.","DEBUG")
 
+        # подгружаем классы загрузки файлов программы и их проверку
         self.Json = Json(self)
-
-        self.config = self.Json.load(self,"data\\config")
+        self.CheckFile = CheckFile(self)
+        
+        # переменные
+        self.load_config() # конфиг игры
         self.version = version # версия игры
         self.status = "Game" # статус игры. Является ID сцен
 
@@ -47,7 +51,7 @@ class Program:
         self.Scene.load(self,"Game")
 
     def main(self):
-        '''Основная функция программы'''
+        '''Основная функция программы. Выполняется внутри цикла.'''
 
         self.Event.main(self)
 
@@ -58,12 +62,27 @@ class Program:
         self.Event.update(self)
 
         self.Display.Clock.tick(self.config["max-fps"])
+        
+    def load_config(self):
+        '''Загрузка конфигурации'''
+        
+        self.Log.write("Загрузка конфигурации программы.")
+        
+        # базовые данные
+        raw_config = self.Json.load(self,"data\\config")
+        
+        # проверка
+        self.config = self.CheckFile.config(self, raw_config)
+        
+        # сохраняем данные
+        self.Json.save(self,"data\\config",self.config)
 
     def stop(self):
         '''Функция для корректной остановки игры'''
 
+        self.Json.save(self,"data\\config",self.config)
         self.Log.write("==========STOP==========","DEBUG")
         self.Log.save()
-
+        
         pygame.quit()
         sys.exit()

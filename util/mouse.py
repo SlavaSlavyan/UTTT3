@@ -51,8 +51,7 @@ class Mouse:
                     mainself.Log.write(f"Отжата кнопка {i} на позиции {self.pos}.")
 
     def update(self, mainself):
-        '''Обновление переменных press и release для каждой кнопки.\n
-        Вызывается в классе Event после выполнения всей логики.'''
+        '''Обновление переменных press и release для каждой кнопки.'''
 
         for i in self.keys:
 

@@ -8,7 +8,13 @@ class KeyBoard:
         mainself.Log.write("Инициализация класса обработки клавиатуры.","DEBUG")
 
         # загрузка биндов из файла
-        self.keys = mainself.Json.load(mainself,"data\\bind") 
+        raw_keys = mainself.Json.load(mainself,"data\\bind")
+        
+        # проверка биндов
+        self.keys = mainself.CheckFile.bind(mainself, raw_keys)
+        
+        # сохраняем данные
+        mainself.Json.save(mainself,"data\\bind",self.keys)
 
         mainself.Log.write("Начальные значения клавиш:")
         for i in self.keys:
@@ -47,8 +53,7 @@ class KeyBoard:
                     mainself.Log.write(f"Отжата клавиша {i} [{self.keys[i]["id"]}]")
 
     def update(self, mainself):
-        '''Обновление переменных press и release для каждой клавиши.\n
-        Вызывается в классе Event после выполнения всей логики.'''
+        '''Обновление переменных press и release для каждой клавиши.'''
 
         for i in self.keys:
 

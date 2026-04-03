@@ -1,6 +1,9 @@
 {
-    "screen-size":[800,800],
-    "fullscreen":false,
-    "max-fps":-1,
-    "debug":true
+    "screen-size": [
+        800,
+        800
+    ],
+    "fullscreen": false,
+    "max-fps": -1,
+    "debug": true
 }
