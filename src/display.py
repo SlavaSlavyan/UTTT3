@@ -100,7 +100,7 @@ class Display:
         mainself.Log.write("Изменение иконки и заголовка дисплея","DEBUG")
 
         # ставим имя
-        pygame.display.set_caption(f"Ulimate Tic Tac Toe")
+        pygame.display.set_caption(f"Ultimate Tic Tac Toe")
 
         # скрываем мышку системы
         pygame.mouse.set_visible(False)

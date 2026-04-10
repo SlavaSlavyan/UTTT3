@@ -93,7 +93,7 @@ try:
     from src.program import Program
 
     # экземпляр основного класса
-    Program = Program("DEV 3.0.9")
+    Program = Program("ALPHA 3.0.9")
     
     Program.starter()
     
