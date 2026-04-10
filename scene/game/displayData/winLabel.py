@@ -9,16 +9,19 @@ class WinLabel:
         self.size = 1  
 
         # таймер
-        # ВОТ ТУТ ДОДЕЛАТЬ!!!
+        self.time = 3
 
     def main(self, mainself):
         '''отображает табличку'''
         
         # рисуем табличку
-        self.Label.draw(mainself,1 - self.size)
+        mainself.Scene.Game.Label.draw(mainself,1 - self.size)
 
         # изменяем размер
         self.size /= 1 + (0.1 * mainself.Display.speed)
+        
+        # отнимаем время от таймера
+        self.time -= 1/60*mainself.Display.speed
 
     def create_label(self, mainself, win:int):
         '''Создаёт ассет победного экрана
@@ -39,4 +42,4 @@ class WinLabel:
             string = "DRAW"
 
         # создаём класс
-        self.Label = mainself.Asset.Label(mainself,(600,200),string,color)
+        mainself.Scene.Game.Label = mainself.Asset.Label(mainself,(600,200),string,color)

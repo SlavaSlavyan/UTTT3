@@ -38,6 +38,12 @@ class Display:
                 
                 # меняем статус
                 scene.status = 1
+                
+                # обнуляем таймер
+                self.Animation.time = 0
+                
+                # меняем направление анимаций
+                self.Animation.speed = 1
 
                 # добавляем на задний план клетки
                 mainself.Asset.Cells(mainself).draw(mainself,(0,0), canvas=scene.Bg.surface)
@@ -51,6 +57,41 @@ class Display:
 
             # отрисовываем плашку выйгрыша
             self.WinLabel.main(mainself)
+            
+            # событие смены локального статуса
+            if self.WinLabel.time <= 0:
+                
+                mainself.Log.write("Новый статус сцены Game. (3)")
+                
+                # меняем статус
+                scene.status = 3
+                
+                # чистим задник
+                scene.Bg.resize(mainself)
+                
+                # очищаем все клетки
+                for i in range(9):
+                    for j in range(9):
+                        mainself.Scene.Game.Logic.Game.cells[i][j] = None
+        
+        if scene.status == 3:
+            
+            # отрисовываем анимацию конца
+            self.Animation.main(mainself)
+            
+            # отрсовываем фигуры
+            self.Game.Figures.main(mainself)
+            
+            # рисуем табличку
+            mainself.Scene.Game.Label.draw(mainself,1 - self.Animation.time)
+            
+            # событие смены СЦЕНЫ!
+            if self.Animation.time >= 1:
+
+                # тут на самом деле очень смешной момент, так как 
+                del mainself.Scene.Game      
+                mainself.Scene.load(mainself,"Game")
+                
 
     def on_resize(self, mainself):
         '''Перерисовка всех спрайтов'''
@@ -86,6 +127,10 @@ class Display:
             scene.Selecting0.resize(mainself)
             scene.SelectingX.resize(mainself)
             scene.UnablSelecting.resize(mainself)
+        
+        # по сути отлельный if для таблички выйгрыша
+        if scene.status == 2:
+            scene.Label.resize(mainself)
         
         # спрайты, обновляющиеся после первой анимации
         if scene.status > 0:

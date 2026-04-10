@@ -3,7 +3,7 @@ import pygame
 class Label:
     '''Табличка со строкой'''
 
-    def __init__(self, mainself, size:tuple, string:str, color:tuple, outline_width:int = 30, font_size:int = 100):
+    def __init__(self, mainself, size:tuple, string:str, color:tuple, outline_width:int = 30, font_size:int = 50):
         '''- **size**: размеры прямоугольника
         - **string**: строчка на табличке
         - **color**: цвет

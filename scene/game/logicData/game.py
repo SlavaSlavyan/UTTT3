@@ -53,14 +53,17 @@ class Game:
 
                 # перезаписываем выбранную клетку
                 self.selected_cell = cell
-                
                 mainself.Log.write(f"Выбранна клетка {cell}")
+                
+                return
             
             else:
-
+                
+                # обнуляем значение
                 self.selected_cell = None
-
                 mainself.Log.write("Клетка занята.")
+                
+                return
         
         mainself.Log.write("Клетка не выбрана.")
     
@@ -108,6 +111,22 @@ class Game:
 
                         # прерываем функцию
                         return
+            
+                # проверяем возможность ничьи
+                result = self.check_draw(mainself)
+                
+                if result:
+                    
+                    mainself.Log.write(f"Ничья!")
+                    
+                    # записываем ничью
+                    self.win = -1
+                    
+                    # переходим на следующий статус
+                    self.next_status(mainself)
+
+                    # прерываем функцию
+                    return
 
                 # следующий игрок
                 if self.player:
@@ -192,9 +211,27 @@ class Game:
         
         mainself.Log.write(f"Никто не выйграл.")
         return False
+
+    def check_draw(self, mainself) -> bool:
+        '''Проверка ничьи.
+        Вернёт булевое выражение в зависимости от результата'''
+        
+        mainself.Log.write(f"Проверка ничьи.")
+        
+        # ищем пустые клетки в больших клетках
+        for i in range(9):
+            if None in self.cells[i]:
+                
+                mainself.Log.write(f"Игра продолжается.")
+                return False
+        
+        # иначе ходов больше сделать нельзя
+        return True
     
     def next_status(self, mainself):
         '''Функция запускает переход на следующий статус и задаёт необходимые настройки'''
+        
+        mainself.Log.write("Новый статус сцены Game. (2)")
 
         # обнуляем значение выделенной клетки
         self.selected_cell = None
