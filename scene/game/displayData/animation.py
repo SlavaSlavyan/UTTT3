@@ -17,7 +17,7 @@ class Animation:
         scene = mainself.Scene.Game
 
         # большая часть окна
-        most = max(mainself.Display.width, mainself.Display.height)
+        most = max(mainself.Display.width/mainself.Display.zoom, mainself.Display.height/mainself.Display.zoom)
         
         # нынешняя точка в анимации (расчитывается из квадрата таймера)
         time = self.time * self.time

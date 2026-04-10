@@ -4,6 +4,6 @@
         800
     ],
     "fullscreen": false,
-    "max-fps": -1,
-    "debug": true
+    "max-fps": 120,
+    "debug": false
 }

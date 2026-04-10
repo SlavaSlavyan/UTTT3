@@ -241,3 +241,6 @@ class Game:
 
         # ставим следующий статус
         mainself.Scene.Game.status = 2
+        
+        # перерисовываем спрайты
+        mainself.Scene.Game.Display.on_resize(mainself)

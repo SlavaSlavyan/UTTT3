@@ -45,8 +45,8 @@ class Display:
                 # меняем направление анимаций
                 self.Animation.speed = 1
 
-                # добавляем на задний план клетки
-                mainself.Asset.Cells(mainself).draw(mainself,(0,0), canvas=scene.Bg.surface)
+                # перерисовываем спрайты
+                self.on_resize(mainself)
 
         if scene.status == 1 or scene.status == 2:
 
@@ -73,22 +73,31 @@ class Display:
                 for i in range(9):
                     for j in range(9):
                         mainself.Scene.Game.Logic.Game.cells[i][j] = None
+                
+                # перерисовываем спрайты
+                self.on_resize(mainself)
         
         if scene.status == 3:
             
-            # отрисовываем анимацию конца
-            self.Animation.main(mainself)
+            try:
+                
+                # отрисовываем анимацию конца
+                self.Animation.main(mainself)
+                
+                
+                # отрсовываем фигуры
+                self.Game.Figures.main(mainself)
+                
+                # рисуем табличку
+                mainself.Scene.Game.Label.draw(mainself,1 - self.Animation.time)
             
-            # отрсовываем фигуры
-            self.Game.Figures.main(mainself)
-            
-            # рисуем табличку
-            mainself.Scene.Game.Label.draw(mainself,1 - self.Animation.time)
+            except:
+                pass
             
             # событие смены СЦЕНЫ!
             if self.Animation.time >= 1:
 
-                # тут на самом деле очень смешной момент, так как 
+                # тут на самом деле очень смешной момент, так как класс сам себя убивает :)
                 del mainself.Scene.Game      
                 mainself.Scene.load(mainself,"Game")
                 
