@@ -12,22 +12,25 @@ class Json:
         '''Возвращает информацию из файла с расширением json.\n
         В случае ошибки вернёт спец символ '$'
         - **path**: Отвечает за путь файла из которого будет загружена информация.'''
+
+        # добавляем расширение файла к пути
+        path = path + ".json"
         
-        mainself.Log.write(f"Загрузка данных из файла {path}.json")
+        mainself.Log.write(f"Загрузка данных из файла {path}")
 
         try:
 
             # читаем иформацию
-            with open(f"{path}.json", "r", encoding="utf-8") as file:
+            with open(path, "r", encoding="utf-8") as file:
                 data =  json.load(file)
 
-            mainself.Log.write(f"Загрузка данных из файла {path}.json прошла успешно! Полученная информация:\n{data}")
+            mainself.Log.write(f"Загрузка данных из файла {path} прошла успешно! Полученная информация:\n{data}")
 
             return data
         
         except Exception as err:
             
-            mainself.Log.write(f"Ошибка загрузки файла {path}.json!\n{traceback.format_exc()}.","ERROR")
+            mainself.Log.write(f"Ошибка загрузки файла {path}!\n{traceback.format_exc()}.","ERROR")
             return "$" # спец символ
         
     def save(self, mainself, path:str, data:any):

@@ -4,6 +4,9 @@ import tkinter
 
 from tkinter import font
 
+MIN_TEXT_SIZE = 8                # минимальный размер текста
+LOG_PATH = "data\\log\\last.log" # путь до файла с последним логом
+
 class SimpleDisplay:
     '''Простой дисплей для отрисовки ошибок'''
     
@@ -18,7 +21,7 @@ class SimpleDisplay:
         self.root.geometry("800x600")
         
         # шрифт текста (для удобного изменения размера)
-        self.font = font.Font(family="Consolas", size=8) 
+        self.font = font.Font(family="Consolas", size=MIN_TEXT_SIZE) 
         
         # бинд клавиш
         self.root.bind("-", lambda e: self.change_size(-2))
@@ -78,20 +81,19 @@ class SimpleDisplay:
         current_size = self.font.actual("size")
         
         # ставим новый
-        new_size = max(8, current_size + delta)
+        new_size = max(MIN_TEXT_SIZE, current_size + delta)
         self.font.configure(size=new_size)
         
-        
 # удаляем старый лог    
-if os.path.exists("data\\log\\last.log"):
-    os.remove("data\\log\\last.log")
+if os.path.exists(LOG_PATH):
+    os.remove(LOG_PATH)
         
 try:
 
     from src.program import Program
 
     # экземпляр основного класса
-    Program = Program("DEV 3.0.8")
+    Program = Program("DEV 3.0.9")
     
     Program.starter()
     
@@ -102,5 +104,5 @@ try:
 except Exception as err:
     
     # Лог создаётся из полученной информации из файла последнего лога и самой ошибки
-    log = SimpleDisplay.load_log("data\\log\\last.log") + traceback.format_exc()
+    log = SimpleDisplay.load_log(LOG_PATH) + traceback.format_exc()
     SimpleDisplay(log).main()

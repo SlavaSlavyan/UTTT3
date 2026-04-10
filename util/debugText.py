@@ -1,5 +1,10 @@
 import pygame
 
+TEXT_SIZE = [6,8] # множитель для размера поверхности текста
+TEXT_INDENT = [8,8] # отступ текста от границы экрана
+VERSION_TEXT_TRANSPARENCY = 255/4 # прозрачность текста версии
+TIMER_SPEED = 1/15 # скорость обновления информации текста
+
 class DebugText:
     '''Отрисовка информации отладки'''
 
@@ -40,7 +45,7 @@ class DebugText:
             f"vers: {mainself.version}", False, mainself.Display.colors["global"]["version-text"])
         
         # делаем текст полупрозрачным
-        self.version_text.set_alpha(255/4)
+        self.version_text.set_alpha(VERSION_TEXT_TRANSPARENCY)
 
         # получаем размеры поверхности (для отрисовки)
         self.version_text_size = self.version_text.get_size()
@@ -62,6 +67,7 @@ class DebugText:
             {"str":"FPS: ","link":"round(mainself.Display.fps)","size":1},
             {"str":"Input mode: ","link":"mainself.Event.mode","size":1},
             {"str":"Mouse pos: ","link":"mainself.Event.Mouse.pos","size":1},
+            {"str":"Win: ","link":"mainself.Scene.Game.Logic.Game.win","size":1},
         ]
         
         # содержит несколько полей
@@ -85,8 +91,10 @@ class DebugText:
             text_len[1] += line["size"]
 
         # создаём поверхность для текста
-        self.debug_text = pygame.Surface((text_len[0]*6,text_len[1]*8),pygame.SRCALPHA)
+        self.debug_text = pygame.Surface((text_len[0]*TEXT_SIZE[0],
+                                          text_len[1]*TEXT_SIZE[1]),pygame.SRCALPHA)
         
+        # координата строки по оси Y для отрисовки
         y = 0
         
         for line in self.debug_list:
@@ -95,10 +103,11 @@ class DebugText:
             text = self.debug_font.render(line["str"], False, mainself.Display.colors["global"]["debug-text"])
             
             # отрисовываем
-            self.debug_text.blit(text,(0,y*8))
+            self.debug_text.blit(text,(0, y * TEXT_SIZE[1]))
             
             # записываем позицию
-            line["pos"] = (8 + text.get_width(),8+y*8)
+            line["pos"] = (TEXT_INDENT[0] + text.get_width(),
+                           TEXT_INDENT[1] + y * TEXT_SIZE[1])
             
             # добавляем отступ
             y += line["size"]
@@ -107,12 +116,12 @@ class DebugText:
         '''отрисовка текста отладки'''
         
         # убавляем таймер
-        self.reload_timer -= 1/15 * mainself.Display.speed
+        self.reload_timer -= TIMER_SPEED * mainself.Display.speed
         
         display = mainself.Display
         
         # отрисовываем начальный текст
-        display.screen.blit(self.debug_text,(8,8))
+        display.screen.blit(self.debug_text, TEXT_INDENT)
         
         for line in self.debug_list:
             

@@ -7,24 +7,7 @@ class KeyBoard:
         
         mainself.Log.write("Инициализация класса обработки клавиатуры.","DEBUG")
 
-        # загрузка биндов из файла
-        raw_keys = mainself.Json.load(mainself,"data\\bind")
-        
-        # проверка биндов
-        self.keys = mainself.CheckFile.bind(mainself, raw_keys)
-        
-        # сохраняем данные
-        mainself.Json.save(mainself,"data\\bind",self.keys)
-
-        mainself.Log.write("Начальные значения клавиш:")
-        for i in self.keys:
-
-            self.keys[i] = {"id":self.keys[i], "press":False, "hold":False, "release":False}
-            mainself.Log.write(f"    {i} = {self.keys[i]};")
-        
-        # keys содержит наименования клавиш и каждая клавиша содержит несколько полей
-        # 3 состояния нажатия и id, к которому привязана эта клавиша внутри pygame
-        # то есть работает также как и обработка мыши
+        self.load_keys(mainself)
 
     def main(self, mainself, event:pygame.event.EventType):
         '''Проверяет действия клавиатуры и изменяет соответствующие переменные внутри класса.
@@ -51,6 +34,28 @@ class KeyBoard:
                     self.keys[i]["hold"] = False
 
                     mainself.Log.write(f"Отжата клавиша {i} [{self.keys[i]["id"]}]")
+    
+    def load_keys(self, mainself):
+
+        # загрузка биндов из файла
+        raw_keys = mainself.Json.load(mainself,"data\\bind")
+        
+        # проверка биндов
+        self.keys = mainself.CheckFile.bind(mainself, raw_keys)
+        
+        # сохраняем данные
+        mainself.Json.save(mainself,"data\\bind",self.keys)
+
+        mainself.Log.write("Начальные значения клавиш:")
+        for i in self.keys:
+
+            self.keys[i] = {"id":self.keys[i], "press":False, "hold":False, "release":False}
+            mainself.Log.write(f"    {i} = {self.keys[i]};")
+        
+        # keys содержит наименования клавиш и каждая клавиша содержит несколько полей
+        # 3 состояния нажатия и id, к которому привязана эта клавиша внутри pygame
+        # то есть работает также как и обработка мыши
+
 
     def update(self, mainself):
         '''Обновление переменных press и release для каждой клавиши.'''
