@@ -1,9 +1,0 @@
-{
-    "screen-size": [
-        800,
-        800
-    ],
-    "fullscreen": false,
-    "max-fps": 120,
-    "debug": false
-}
