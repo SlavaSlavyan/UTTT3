@@ -6,9 +6,8 @@ from datetime import datetime
 from typing import cast
 
 BASE_PRINT: types.FunctionType = builtins.print
-LOG_DIRECTORY_PATH: str = "log\\"
-LOG_FILE_PATH: str = "_last.log"
-BASE_LOG_LEVEL: str = "DEBUG"
+BASE_LOG_PATH: str = "log\\_last.log"
+BASE_LOG_LEVEL: str = "TRACE"
 
 def set_logger_print() -> None:
     '''Переназначает встроенную функцию `print`, добавляя логирование.'''
@@ -37,22 +36,22 @@ def get_logger_print() -> types.FunctionType:
             line = datetime.now().strftime("[%H:%M:%S.%f] ") + line
             
         if log_level_formatting:
+            line = f"[{get_log_level(line)}] " + line
             
-            log_level: str | None
-        
-            # функция ниже должна быть подключена сюда
+        if os.path.isdir(os.path.dirname(BASE_LOG_PATH)):
             
-            if log_level:
-                line = f"[{log_level}] " + line
+            try:
+                with open(BASE_LOG_PATH, 'a', encoding="utf-8") as file:
+                    file.write(line)
         
         BASE_PRINT(line)
         
     return print
 
-# вот тут доделать!!!
 def get_log_level(line: str) -> str:
     '''Получение уровня логирования из вложенной строчки для форматирования. 
-Первые два символа в строке обозначают возвращаемый уровень.\n- **%D** - '''
+Первые два символа в строке обозначают возвращаемый уровень.
+- **%D** - debug\n- **%I** - info\n- **%W** - warn\n- **%E** - error\n- **%F** - fatal'''
     
     if line.startswith("%D"): return "DEBUG"
     
