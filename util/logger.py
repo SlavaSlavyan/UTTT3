@@ -9,19 +9,16 @@ BASE_PRINT: types.FunctionType = builtins.print
 BASE_LOG_PATH: str = "log\\_last.log"
 BASE_LOG_LEVEL: str = "TRACE"
 
-def set_logger_print() -> None:
-    '''Переназначает встроенную функцию `print`, добавляя логирование.'''
-    
-    global print
-    print = get_logger_print()
-
 def get_logger_print() -> types.FunctionType:
     '''Возвращает переназначенную встроенную функцию `print`, добавляя логирование.'''
+    
+    if os.path.exists(BASE_LOG_PATH):
+        os.remove(BASE_LOG_PATH)
 
     def print(*args: object, 
               time_formatting: bool = True, 
               log_level_formatting: bool = True, 
-              **kwargs: object):
+              **kwargs: object) -> None:
         
         str_args: tuple[str, ...] = tuple(str(a) for a in args)
         sep: object = kwargs.get("sep", " ")
@@ -31,20 +28,22 @@ def get_logger_print() -> types.FunctionType:
         end = cast(str, end)
         
         line: str = sep.join(str_args) + end
-        
+            
+        if log_level_formatting:
+            line = f"[{get_log_level(line)}] " + line[2:]
+            
         if time_formatting:
             line = datetime.now().strftime("[%H:%M:%S.%f] ") + line
             
-        if log_level_formatting:
-            line = f"[{get_log_level(line)}] " + line
+        os.makedirs(os.path.dirname(BASE_LOG_PATH), exist_ok=True)
             
-        if os.path.isdir(os.path.dirname(BASE_LOG_PATH)):
-            
-            try:
-                with open(BASE_LOG_PATH, 'a', encoding="utf-8") as file:
-                    file.write(line)
+        try:
+            with open(BASE_LOG_PATH, 'a', encoding="utf-8") as file:
+                file.write(line)
+        except:
+            pass
         
-        BASE_PRINT(line)
+        BASE_PRINT(line, sep='',end='')
         
     return print
 
