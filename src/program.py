@@ -13,6 +13,8 @@ class Program:
     
     def main(self) -> None:
         '''Запуск программы'''
+        
+        self.stop()
     
     def stop(self) -> None:
         '''Остановка программы'''
@@ -22,7 +24,7 @@ class Program:
               log_level_formatting = False)
         
         pygame.quit()
-        sys.exit()
+        sys.exit(0)
 
 # Костыль, чтобы интерпретатор не ругался
 print = get_logger_print()
